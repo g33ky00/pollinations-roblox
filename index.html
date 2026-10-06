@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollinations NPC Dialogue for Roblox</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">PollinationsNPC</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#install">Install</a>
+                <a href="#usage">Usage</a>
+                <a href="#api">API</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Pollinations NPC Dialogue for Roblox</h1>
+            <p class="subtitle">Production-ready Luau module that gives NPCs conversations powered by Pollinations AI text models</p>
+            <div class="badges">
+                <span class="badge quest">Quest #15583</span>
+                <span class="badge roblox">Roblox Luau</span>
+                <span class="badge version">v2.0.0</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="#install" class="btn primary">Get Started</a>
+                <a href="https://github.com/g33ky00/pollinations-roblox" class="btn secondary">View on GitHub</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="code-preview">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="code-title">PollinationsNPC.lua</span>
+                </div>
+                <pre><code>local npc = PollinationsNPC.new({
+    model = "openai/gpt-5.4-nano",
+    systemPrompt = "You are a wise wizard",
+    apiKey = ServerStorage:GetSecret("POLLINATIONS_API_KEY"),
+})
+
+npc:SetupProximityPrompt(workspace.NPC)
+npc:SetupChatCommand("Wizard")</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Async Generation</h3>
+                <p>Non-blocking API calls via task.spawn with conversation history</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎭</div>
+                <h3>Persona System</h3>
+                <p>Set system prompts, NPCs stay in character with context memory</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Secret Auth</h3>
+                <p>Roblox Secrets integration with fallback query-param auth</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Chat Commands</h3>
+                <p>Players type @NPCName message to talk to NPCs</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>ProximityPrompt</h3>
+                <p>Click-to-interact NPC dialogue with visual feedback</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Rate Limiting</h3>
+                <p>Per-player request throttling and graceful error handling</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="install" class="install">
+        <h2>Installation</h2>
+        <div class="install-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Import the Module</h3>
+                <p>Copy <code>src/PollinationsNPC.lua</code> to <code>ServerScriptService → Modules → PollinationsNPC</code></p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Set Up API Key</h3>
+                <p>Add <code>POLLINATIONS_API_KEY</code> to Roblox Secrets in Creator Dashboard</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Add Example NPC</h3>
+                <p>Copy <code>src/ExampleNPCScript.lua</code> to <code>ServerScriptService</code></p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Enable HTTP</h3>
+                <p>Enable HTTP Requests in Game Settings → Security</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="usage" class="usage">
+        <h2>Usage Examples</h2>
+        <div class="example-tabs">
+            <button class="tab-btn active" data-tab="basic">Basic</button>
+            <button class="tab-btn" data-tab="advanced">Advanced</button>
+            <button class="tab-btn" data-tab="chat">Chat Command</button>
+        </div>
+        <div class="tab-content active" id="basic">
+            <pre><code>local PollinationsNPC = require(game.ServerScriptService.Modules.PollinationsNPC)
+
+local npc = PollinationsNPC.new({
+    model = "openai/gpt-5.4-nano",
+    systemPrompt = "You are a pirate captain.",
+    apiKey = game:GetService("ServerStorage"):GetSecret("POLLINATIONS_API_KEY") or "",
+    temperature = 0.8,
+})
+
+print(npc:GetGreeting())
+local reply = npc:AskPlayer("Where is the treasure?")
+print(reply)</code></pre>
+        </div>
+        <div class="tab-content" id="advanced">
+            <pre><code>local npc = PollinationsNPC.new({
+    model = "openai/gpt-5.4-nano",
+    systemPrompt = "You are a wise wizard.",
+    apiKey = game:GetService("ServerStorage"):GetSecret("POLLINATIONS_API_KEY"),
+    maxConversationTurns = 10,
+    rateLimitSeconds = 3,
+})
+
+npc:SetupProximityPrompt(workspace.NPCModel)
+npc:SetupChatCommand("Wizard")
+npc:SetupPlayerEvents()
+
+npc:OnPlayerQuestion(function(player, question, reply)
+    print(player.Name .. " asked: " .. question)
+    print("NPC replied: " .. reply)
+end)</code></pre>
+        </div>
+        <div class="tab-content" id="chat">
+            <pre><code>-- Players type in chat:
+-- @Wizard What is the meaning of life?
+-- @Wizard Tell me a story
+-- @Wizard Where should I go next?
+
+-- The NPC responds with AI-generated dialogue
+-- that appears in a speech bubble above their head</code></pre>
+        </div>
+    </section>
+
+    <section id="api" class="api">
+        <h2>API Reference</h2>
+        <div class="api-table">
+            <div class="api-row api-header">
+                <span>Method</span>
+                <span>Description</span>
+            </div>
+            <div class="api-row">
+                <code>PollinationsNPC.new(config)</code>
+                <span>Create a new NPC instance</span>
+            </div>
+            <div class="api-row">
+                <code>npc:GenerateText(prompt, model?)</code>
+                <span>Generate text from prompt (sync)</span>
+            </div>
+            <div class="api-row">
+                <code>npc:GenerateTextAsync(player, question, callback)</code>
+                <span>Generate text with history (async)</span>
+            </div>
+            <div class="api-row">
+                <code>npc:AskPlayer(question)</code>
+                <span>Ask NPC a question (sync)</span>
+            </div>
+            <div class="api-row">
+                <code>npc:AskPlayerAsync(player, question, callback)</code>
+                <span>Ask NPC a question (async)</span>
+            </div>
+            <div class="api-row">
+                <code>npc:SetupProximityPrompt(model, text?)</code>
+                <span>Setup ProximityPrompt interaction</span>
+            </div>
+            <div class="api-row">
+                <code>npc:SetupBillboardGui(model, text?)</code>
+                <span>Setup speech bubble display</span>
+            </div>
+            <div class="api-row">
+                <code>npc:SetupChatCommand(name?)</code>
+                <span>Setup @NPCName chat handler</span>
+            </div>
+            <div class="api-row">
+                <code>npc:SetupPlayerEvents()</code>
+                <span>Setup player join/leave events</span>
+            </div>
+            <div class="api-row">
+                <code>npc:OnPlayerQuestion(callback)</code>
+                <span>Register question callback</span>
+            </div>
+            <div class="api-row">
+                <code>npc:Destroy()</code>
+                <span>Cleanup all connections</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="api-evidence">
+        <h2>Live API Evidence</h2>
+        <div class="evidence-container">
+            <div class="evidence-card">
+                <h3>Text Models Endpoint</h3>
+                <code>GET https://gen.pollinations.ai/text/models</code>
+                <div id="models-list" class="evidence-result">Loading...</div>
+            </div>
+            <div class="evidence-card">
+                <h3>Chat Completions Endpoint</h3>
+                <code>POST https://gen.pollinations.ai/v1/chat/completions</code>
+                <div id="chat-evidence" class="evidence-result">Ready to test</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-list">
+            <details>
+                <summary>Do I need a Pollinations API key?</summary>
+                <p>No, but it's recommended. Without a key, the module uses fallback auth with rate limits. With a key, you get higher limits and more models.</p>
+            </details>
+            <details>
+                <summary>How do I change the NPC's personality?</summary>
+                <p>Use <code>npc:SetPersona("Your new system prompt")</code> or set <code>systemPrompt</code> in the config.</p>
+            </details>
+            <details>
+                <summary>How do I limit API costs?</summary>
+                <p>Set <code>rateLimitSeconds</code> higher, reduce <code>maxTokens</code>, or use a cheaper model.</p>
+            </details>
+            <details>
+                <summary>Can I use multiple NPCs?</summary>
+                <p>Yes! Create multiple instances with different configs for different personas.</p>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <p>MIT License • <a href="https://github.com/g33ky00/pollinations-roblox">GitHub</a> • Quest #15583</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

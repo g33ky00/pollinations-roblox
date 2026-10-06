@@ -1,0 +1,15 @@
+quest: 15583
+title: "Pollinations NPC Dialogue for Roblox"
+category: games
+description: "Production-ready Luau module that gives NPCs conversations powered by Pollinations AI text models"
+tags:
+  - roblox
+  - luau
+  - npc
+  - ai
+  - dialogue
+  - pollinations
+bring_your_own_pollen: true
+pollen_reward: 10
+difficulty: intermediate
+estimated_time: "2-4 hours"
