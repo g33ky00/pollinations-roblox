@@ -196,3 +196,30 @@ MIT — see [CHANGELOG.md](CHANGELOG.md).
 ## Quest
 
 This module fulfills [Quest #15583](https://github.com/pollinations/pollinations/issues/15583) — _[QUEST] Pollinations NPC dialogue for Roblox_
+
+## Playable place (no setup)
+
+`PollinationsNPC.rbxlx` is a ready-to-open Roblox place containing the module,
+the example NPC script, a baseplate and a spawn point. Open it in Roblox Studio
+and press Play — no manual file copying.
+
+```
+Roblox Studio → File → Open from File → PollinationsNPC.rbxlx
+```
+
+Then set the API key so the NPC can call Pollinations:
+
+1. In Studio, go to **Game Settings → Security → Secrets**.
+2. Add a secret named `POLLINATIONS_API_KEY` with your key from
+   <https://enter.pollinations.ai/keys>.
+3. Press **Play**, walk to the NPC and use the ProximityPrompt (or type
+   `@Wizard hello` in chat).
+
+To regenerate the place after editing the Lua sources:
+
+```bash
+python3 tools/build_place.py
+```
+
+The generator embeds `src/PollinationsNPC.lua` and `src/ExampleNPCScript.lua`
+verbatim into the place XML, and both are checked to be valid Luau.
