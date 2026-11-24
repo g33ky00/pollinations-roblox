@@ -1,10 +1,40 @@
 # Pollinations Roblox NPC
 
+> Production-ready Luau module that gives your Roblox NPCs conversations powered by Pollinations AI text models. Players type in chat, NPCs reply with AI-generated dialogue in-character.
+
 [![Quest](https://img.shields.io/badge/Quest-%2315583-blue)](https://github.com/pollinations/pollinations/issues/15583)
 [![Roblox](https://img.shields.io/badge/Roblox-Luau-00ff00)](https://create.roblox.com/)
 [![Version](https://img.shields.io/badge/Version-2.0.0-green)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 
-Production-ready Luau module that gives your NPCs conversations powered by Pollinations AI text models. Players type in chat, NPCs reply with AI-generated dialogue in-character.
+## Table of contents
+
+- [About](#about)
+- [Features](#features)
+- [Repository structure](#repository-structure)
+- [Stack](#stack)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [API Reference](#api-reference)
+- [Configuration Options](#configuration-options)
+- [Security](#security)
+- [Roblox Secrets Setup](#roblox-secrets-setup)
+- [Example Place Guide](#example-place-guide)
+- [FAQ](#faq)
+- [Contribution](#contribution)
+- [Changelog](#changelog)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Quest](#quest)
+- [Playable place](#playable-place-no-setup)
+
+## About
+
+- **What**: A drop-in Luau module (`PollinationsNPC`) plus an example NPC script, exposing chat-completion-based dialogue for Roblox NPCs via Pollinations AI.
+- **For whom**: Roblox developers building games with AI-driven NPC dialogue.
+- **Why**: Provides conversation history, personas, rate limiting and graceful degradation out of the box, instead of re-implementing HTTP calls per project.
+- **Who**: Maintained by [@g33ky00](https://github.com/g33ky00). Quest author for Pollinations Quest #15583.
+- **Contacts**: GitHub issues at https://github.com/g33ky00/pollinations-roblox/issues
 
 ## Features
 
@@ -20,6 +50,37 @@ Production-ready Luau module that gives your NPCs conversations powered by Polli
 - **Rate limiting** — per-player request throttling
 - **Graceful degradation** — fallback messages on API errors
 - **Complete example** — drop-in demo with wizard persona
+- **Ready-to-open place file** — `PollinationsNPC.rbxlx` for instant testing
+
+## Repository structure
+
+```text
+pollinations-roblox/
+├── src/
+│   ├── PollinationsNPC.lua
+│   └── ExampleNPCScript.lua
+├── tools/
+│   └── build_place.py
+├── index.html
+├── script.js
+├── styles.css
+├── app.yml
+├── deploy.json
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+└── PollinationsNPC.rbxlx
+```
+
+## Stack
+
+| Component | Version | Source |
+|---|---|---|
+| Luau module | 2.0.0 | `src/PollinationsNPC.lua` |
+| Example script | 2.0.0 | `src/ExampleNPCScript.lua` |
+| Place builder | Python 3.13 | `tools/build_place.py` |
+| Pollinations API | v1 chat completions | `gen.pollinations.ai` |
+| Roblox Secrets | `ServerStorage:GetSecret()` | `src/PollinationsNPC.lua` |
 
 ## Installation
 
@@ -136,6 +197,14 @@ end)
 | `customFallbackMessage` | `"I'm temporarily unable to speak..."` | Fallback message |
 | `npcName` | `"NPC"` | NPC name for chat commands |
 
+## Security
+
+- API keys are stored via Roblox Secrets (`ServerStorage:GetSecret()`), never hardcoded in client code.
+- All HTTP calls run server-side (ModuleScript in `ServerScriptService`); no client exposure.
+- Fallback auth (`?key=`) is optional and only used when no secret is configured.
+- Input from chat is forwarded to the Pollinations API; review persona prompts to avoid prompt injection in untrusted contexts.
+- No user data beyond per-player conversation history is persisted.
+
 ## Roblox Secrets Setup
 
 1. Go to [Creator Dashboard](https://create.roblox.com/dashboard)
@@ -147,6 +216,7 @@ end)
 7. Click **Save**
 
 In your script:
+
 ```lua
 local apiKey = game:GetService("ServerStorage"):GetSecret("POLLINATIONS_API_KEY")
 ```
@@ -180,6 +250,7 @@ Set `rateLimitSeconds` to a higher value, reduce `maxTokens`, or use a cheaper m
 ### Can I use multiple NPCs?
 
 Yes! Create multiple instances with different configs:
+
 ```lua
 local wizard = PollinationsNPC.new({ npcName = "Wizard", systemPrompt = "You are a wizard" })
 local pirate = PollinationsNPC.new({ npcName = "Pirate", systemPrompt = "You are a pirate" })
@@ -189,9 +260,41 @@ local pirate = PollinationsNPC.new({ npcName = "Pirate", systemPrompt = "You are
 
 The module has built-in fallback handling. Set `customFallbackMessage` to customize the error message players see.
 
+## Contribution
+
+### Conventions de commit
+
+| Préfixe | Usage |
+|---|---|
+| `feat:` | Nouvelle fonctionnalité |
+| `fix:` | Correction |
+| `docs:` | Documentation |
+| `chore:` | Maintenance |
+
+Open a PR against `main`. Keep changes focused and update `CHANGELOG.md` for user-facing changes.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for the full history. Latest: v2.0.0 (2026-10-06).
+
+## Roadmap
+
+### ✅ Terminé
+- [x] Luau module v1.0.0 (Quest #15583)
+- [x] Production-ready rewrite v2.0.0
+- [x] Ready-to-open place file (`PollinationsNPC.rbxlx`)
+- [x] Landing page (`index.html`)
+
+### 🔵 En cours
+- [ ] README compliance with CHARTE-README.md
+
+### 🟡 Planifié
+- [ ] Additional NPC personas/examples
+- [ ] Unit tests for `tools/build_place.py`
+
 ## License
 
-MIT — see [CHANGELOG.md](CHANGELOG.md).
+This project is under **MIT** license. See [`LICENSE`](./LICENSE).
 
 ## Quest
 
