@@ -1,5 +1,7 @@
 # Pollinations Roblox NPC
 
+[![CI](https://github.com/g33ky00/pollinations-roblox/actions/workflows/ci-unified.yml/badge.svg)](https://github.com/g33ky00/pollinations-roblox/actions/workflows/ci-unified.yml)
+
 > Production-ready Luau module that gives your Roblox NPCs conversations powered by Pollinations AI text models. Players type in chat, NPCs reply with AI-generated dialogue in-character.
 
 [![Quest](https://img.shields.io/badge/Quest-%2315583-blue)](https://github.com/pollinations/pollinations/issues/15583)
@@ -326,3 +328,11 @@ python3 tools/build_place.py
 
 The generator embeds `src/PollinationsNPC.lua` and `src/ExampleNPCScript.lua`
 verbatim into the place XML, and both are checked to be valid Luau.
+
+## Structure
+
+Voir l'arborescence du dépôt.
+
+## Contributing
+
+Les contributions sont les bienvenues via pull request.
